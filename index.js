@@ -83,6 +83,33 @@ async function run() {
             res.send(result)
         })
 
+        app.get('/my-review', async (req, res) => {
+            let query = {};
+            if (req.query.email) {
+                query = {
+                    email: req.query.email
+                }
+            }
+            const cursor = reviewCollection.find(query);
+            const myReview = await cursor.toArray();
+            res.send(myReview);
+        })
+
+        // delete review
+        app.delete('/my-reviews/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const result = await reviewCollection.deleteOne(query)
+            res.send(result)
+        })
+
+        // add service
+        app.post('/add-services', async (req, res) => {
+            const wedding = req.body;
+            const result = await asterWeddingCollection.insertOne(wedding)
+            res.send(result)
+        })
+
 
     }
     finally {
