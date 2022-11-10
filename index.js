@@ -22,12 +22,6 @@ async function run() {
         const asterWeddingCollection = client.db('asterWedding').collection('wedding')
         const reviewCollection = client.db('asterReview').collection('reviews')
 
-        // app.post('/jwt', (req, res) => {
-        //     const user = req.body;
-        //     const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
-        //     res.send({ token })
-        // })
-
         app.get('/services', async (req, res) => {
             const size = parseInt(req.query.size);
             const query = {};
@@ -54,15 +48,6 @@ async function run() {
             const details = await asterWeddingCollection.findOne(query);
             res.send(details)
         })
-
-        // // reviews
-        // app.get('/reviews', async (req, res) => {
-        //     console.log(req.body.reviewId)
-        //     const query = {};
-        //     const cursor = reviewCollection.find(query);
-        //     const allReviews = await cursor.toArray();
-        //     res.send(allReviews)
-        // })
 
         app.get('/review', async (req, res) => {
             console.log(req.query.reviewId)
